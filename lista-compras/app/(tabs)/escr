@@ -1,0 +1,8 @@
+CONTENEDORES
+CONTENIDOS
+CONTROLADORES
+
+
+HOOKS: Manejar variables y reutilizarlas, importandolas desde otras funciones. En ese archivo se exportan estan variables.
+
+Se pueden hacer presionable muchas estiquetas que no lo son (como las de imagen)

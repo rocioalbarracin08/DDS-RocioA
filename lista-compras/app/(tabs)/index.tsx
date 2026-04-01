@@ -1,12 +1,14 @@
-import { useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
   FlatList,
+  Pressable,
   StyleSheet,
-} from 'react-native';
+  Text,
+  View
+} from "react-native";
+import Contenedor from "./componentes/Contenedor";
+import FormularioParaAgregarItem from "./componentes/FormularioParaAgregarItem";
+import Titulo from "./componentes/Titulo";
+import usarItems from "./hooks/usarItems";
 
 type Item = {
   id: string;
@@ -15,28 +17,7 @@ type Item = {
 };
 
 export default function App() {
-  const [items, setItems] = useState<Item[]>([]);
-  const [text, setText] = useState('');
-
-  const addItem = () => {
-    const trimmed = text.trim();
-    if (!trimmed) return;
-    setItems((prev) => [
-      ...prev,
-      { id: String(Date.now()), name: trimmed, done: false },
-    ]);
-    setText('');
-  };
-
-  const toggleItem = (id: string) => {
-    setItems((prev) =>
-      prev.map((it) => (it.id === id ? { ...it, done: !it.done } : it)),
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setItems((prev) => prev.filter((it) => it.id !== id));
-  };
+  const { agregarItem, eliminarItem, cambiarItem, obtenerItems } = usarItems();
 
   const renderItem = ({ item }: { item: Item }) => (
     <Pressable
@@ -47,84 +28,82 @@ export default function App() {
       <Text style={[styles.rowText, item.done && styles.done]}>
         {item.name}
       </Text>
-      <Text style={[styles.pill, item.done ? styles.pillDone : styles.pillTodo]}>
-        {item.done ? '✔' : '•'}
+      <Text
+        style={[styles.pill, item.done ? styles.pillDone : styles.pillTodo]}
+      >
+        {item.done ? "✔" : "•"}
       </Text>
     </Pressable>
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>🛒 Lista de Compras</Text>
+    <Contenedor>
+      <Titulo />
 
-      <View style={styles.inputRow}>
-        <TextInput
-          value={text}
-          onChangeText={setText}
-          placeholder="Agregar producto (ej: Leche)"
-          style={styles.input}
-          returnKeyType="done"
-          onSubmitEditing={addItem}
-        />
-        <Pressable style={styles.addBtn} onPress={addItem}>
-          <Text style={styles.addTxt}>Agregar</Text>
-        </Pressable>
-      </View>
+      <FormularioParaAgregarItem alCompletarseElFormulario={addItem} />
 
       <FlatList
         data={items}
         keyExtractor={(it) => it.id}
         renderItem={renderItem}
         ListEmptyComponent={
-          <Text style={styles.empty}>Sin productos. ¡Agregá el primero! 😊</Text>
+          <Text style={styles.empty}>
+            Sin productos. ¡Agregá el primero! 😊
+          </Text>
         }
         ItemSeparatorComponent={() => <View style={styles.sep} />}
         contentContainerStyle={{ paddingBottom: 32 }}
       />
-    </View>
+    </Contenedor>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, gap: 12, backgroundColor: '#fff', paddingTop: 60 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 10 },
-  inputRow: { flexDirection: 'row', gap: 8, marginBottom: 10 },
+  container: {
+    flex: 1,
+    padding: 16,
+    gap: 12,
+    backgroundColor: "#fff",
+    paddingTop: 60,
+  },
+  title: { fontSize: 24, fontWeight: "bold", marginBottom: 10 },
+  inputRow: { flexDirection: "row", gap: 8, marginBottom: 10 },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 8,
     paddingHorizontal: 12,
     height: 44,
   },
   addBtn: {
-    backgroundColor: '#1e90ff',
+    backgroundColor: "#1e90ff",
     paddingHorizontal: 14,
     borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
-  addTxt: { color: '#fff', fontWeight: '600' },
+  addTxt: { color: "#fff", fontWeight: "600" },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingVertical: 12,
     paddingHorizontal: 8,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   rowText: { fontSize: 16 },
-  done: { textDecorationLine: 'line-through', color: '#999' },
+  done: { textDecorationLine: "line-through", color: "#999" },
   pill: {
     minWidth: 28,
     height: 28,
     borderRadius: 14,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 28,
-    fontWeight: '700',
-    overflow: 'hidden'
+    fontWeight: "700",
+    overflow: "hidden",
   },
-  pillTodo: { backgroundColor: '#eee', color: '#666' },
-  pillDone: { backgroundColor: '#2ecc71', color: '#fff' },
-  sep: { height: 1, backgroundColor: '#eee' },
-  empty: { textAlign: 'center', color: '#777', marginTop: 24 },
+  pillTodo: { backgroundColor: "#eee", color: "#666" },
+  pillDone: { backgroundColor: "#2ecc71", color: "#fff" },
+  sep: { height: 1, backgroundColor: "#eee" },
+  empty: { textAlign: "center", color: "#777", marginTop: 24 },
 });

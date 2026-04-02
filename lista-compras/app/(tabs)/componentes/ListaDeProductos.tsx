@@ -1,39 +1,38 @@
 import React from "react";
-import { FlatList, Text, View, StyleSheet } from "react-native";
-import { FilaPorProducto } from "./FilaPorProducto"; 
+import { FlatList, Text, View, StyleSheet, Pressable } from "react-native";
 
 interface ListaDeProductosProps {
   items: any[];
-  alPresionarItem: (id: string) => void; 
+  alPresionarItem: (id: string) => void;
   alMantenerPresionadoItem: (id: string) => void;
 }
-export const ListaDeProductos = ({ 
-  items, 
-  alPresionarItem, 
-  alMantenerPresionadoItem 
-}: ListaDeProductosProps) => {
 
-  const renderizarFila = ({ item }: { item: any }) => (
-    <FilaPorProducto
-      item={item} 
-      alPresionar={alPresionarItem} 
-      alMantenerPresionado={alMantenerPresionadoItem} 
-    />
-  );
+export const ListaDeProductos = ({ items, alPresionarItem, alMantenerPresionadoItem }: ListaDeProductosProps) => {
 
   return (
     <FlatList
       data={items}
-      keyExtractor={(item) => item.id} 
-      renderItem={renderizarFila}
-      ListEmptyComponent={
-        <Text style={styles.vacio}>Sin productos. ¡Agregá el primero! 😊</Text>
-      }
-      ItemSeparatorComponent={() => <View style={styles.separador} />}
-      contentContainerStyle={styles.contenedorLista}
+      keyExtractor={(item) => item.id}
+      
+      //Diseño para cada producto acá adentro del renderItem
+      renderItem={({ item }) => (
+        <Pressable
+          onPress={() => alPresionarItem(item.id)}
+          onLongPress={() => alMantenerPresionadoItem(item.id)}
+          style={styles.row}
+        >
+          <Text style={[styles.rowText, item.done && styles.done]}>{item.name}</Text>
+          <Text style={[styles.pill, item.done ? styles.pillDone : styles.pillTodo]}>
+            {item.done ? "✔" : "•"}
+          </Text>
+        </Pressable>
+      )}
+      ListEmptyComponent={<Text style={styles.empty}>Sin productos. ¡Agregá el primero! 😊</Text>}
+      ItemSeparatorComponent={() => <View style={styles.sep} />}
     />
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -84,3 +83,5 @@ const styles = StyleSheet.create({
   sep: { height: 1, backgroundColor: "#eee" },
   empty: { textAlign: "center", color: "#777", marginTop: 24 },
 });
+
+export default ListaDeProductos;

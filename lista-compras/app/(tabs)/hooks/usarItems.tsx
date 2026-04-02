@@ -5,12 +5,6 @@ type Item = {
   name: string;
   done: boolean;
 };
-/*
-function UsarItems() {
-    
-    return (<></>);
-}
-*/
 
 const usarItems = () => {
   const [items, setItems] = useState<Item[]>([]); //Quitar??

@@ -1,33 +1,39 @@
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
-import Contenedor from "./componentes/Contenedor";
-import FormularioParaAgregarItem from "./componentes/FormularioParaAgregarItem";
-import Titulo from "./componentes/Titulo";
-import usarItems from "./hooks/usarItems";
+import React from "react";
+import { FlatList, Text, View, StyleSheet } from "react-native";
+import { FilaPorProducto } from "./FilaPorProducto"; 
 
+interface ListaDeProductosProps {
+  items: any[];
+  alPresionarItem: (id: string) => void; 
+  alMantenerPresionadoItem: (id: string) => void;
+}
+export const ListaDeProductos = ({ 
+  items, 
+  alPresionarItem, 
+  alMantenerPresionadoItem 
+}: ListaDeProductosProps) => {
 
-export default function App() {
-  const { agregarItem, eliminarItem, cambiarItem, obtenerItems } = usarItems();
+  const renderizarFila = ({ item }: { item: any }) => (
+    <FilaPorProducto
+      item={item} 
+      alPresionar={alPresionarItem} 
+      alMantenerPresionado={alMantenerPresionadoItem} 
+    />
+  );
 
   return (
-    <Contenedor>
-      <Titulo />
-
-      <FormularioParaAgregarItem alCompletarseElFormulario={agregarItem} />
-
-      <ListaDeCompras
-        items={obtenerItems()} //Array de objetos
-        alPresionarSobreUnItem={cambiarItem}
-        alMantenerPresionSobreUnItem={eliminarItem}
-      />
-    </Contenedor>
+    <FlatList
+      data={items}
+      keyExtractor={(item) => item.id} 
+      renderItem={renderizarFila}
+      ListEmptyComponent={
+        <Text style={styles.vacio}>Sin productos. ¡Agregá el primero! 😊</Text>
+      }
+      ItemSeparatorComponent={() => <View style={styles.separador} />}
+      contentContainerStyle={styles.contenedorLista}
+    />
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

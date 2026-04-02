@@ -1,33 +1,33 @@
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
-import Contenedor from "./componentes/Contenedor";
-import FormularioParaAgregarItem from "./componentes/FormularioParaAgregarItem";
-import Titulo from "./componentes/Titulo";
-import usarItems from "./hooks/usarItems";
+import React from "react";
+import { Pressable, Text, StyleSheet } from "react-native";
 
-
-export default function App() {
-  const { agregarItem, eliminarItem, cambiarItem, obtenerItems } = usarItems();
-
-  return (
-    <Contenedor>
-      <Titulo />
-
-      <FormularioParaAgregarItem alCompletarseElFormulario={agregarItem} />
-
-      <ListaDeCompras
-        items={obtenerItems()} //Array de objetos
-        alPresionarSobreUnItem={cambiarItem}
-        alMantenerPresionSobreUnItem={eliminarItem}
-      />
-    </Contenedor>
-  );
+interface FilaPorProductoProps {
+    item: { 
+    id: string; 
+    name: string; 
+    done: boolean 
+  };
+  alPresionar: (id: string) => void;        
+  alMantenerPresionado: (id: string) => void;
 }
+
+export const FilaPorProducto = ({ item, alPresionar, alMantenerPresionado }: FilaPorProductoProps) => {
+  return (
+    <Pressable
+
+      onPress={() => alPresionar(item.id)}
+      onLongPress={() => alMantenerPresionado(item.id)} 
+      style={styles.row}>
+      <Text style={[styles.rowText, item.done && styles.done]}>
+        {item.name}
+      </Text>
+      <Text style={[styles.pill, item.done ? styles.pillDone : styles.pillTodo]}>
+        {item.done ? "✔" : "•"}
+      </Text>
+
+    </Pressable>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

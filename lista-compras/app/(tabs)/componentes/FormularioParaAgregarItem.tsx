@@ -6,7 +6,7 @@ const FormularioParaAgregarItem = ({
 }: {
   alCompletarseElFormulario: (item: string) => void;
 }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(""); 
   return (
     <View style={styles.inputRow}>
       <TextInput

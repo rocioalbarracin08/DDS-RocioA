@@ -14,7 +14,7 @@ export const ListaDeProductos = ({ items, alPresionarItem, alMantenerPresionadoI
       data={items}
       keyExtractor={(item) => item.id}
       
-      //Diseño para cada producto acá adentro del renderItem
+      //Diseño para cada producto acá, dentro del renderItem. Pero podría ser aparte
       renderItem={({ item }) => (
         <Pressable
           onPress={() => alPresionarItem(item.id)}

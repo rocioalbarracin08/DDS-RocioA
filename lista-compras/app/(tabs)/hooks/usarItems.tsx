@@ -1,13 +1,9 @@
 import { useState } from "react";
+import { ItemParaListaDeCompras } from "../tipos/ItemParaListaDeCompras"; 
 
-type Item = {
-  id: string;
-  name: string;
-  done: boolean;
-};
 
 const usarItems = () => {
-  const [items, setItems] = useState<Item[]>([]); //Quitar??
+  const [items, setItems] = useState<ItemParaListaDeCompras[]>([]); //Quitar??
 
   const agregarItem = (item: string) => {
     const trimmed = item.trim();

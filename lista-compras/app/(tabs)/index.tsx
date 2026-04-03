@@ -5,9 +5,9 @@ import {
   Text,
   View
 } from "react-native";
-import Contenedor from "./componentes/Contenedor";
-import FormularioParaAgregarItem from "./componentes/FormularioParaAgregarItem";
-import Titulo from "./componentes/Titulo";
+import Contenedor from "./componentes/contenedores/Contenedor";
+import FormularioParaAgregarItem from "./componentes/controladores/FormularioParaAgregarItem";
+import Titulo from "./componentes/contenidos/Titulo";
 import usarItems from "./hooks/usarItems";
 
 

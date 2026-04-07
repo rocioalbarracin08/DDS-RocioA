@@ -2,10 +2,10 @@ import { useState } from "react";
 import { ItemParaListaDeCompras } from "../tipos/ItemParaListaDeCompras"; 
 
 
-const usarItems = () => {
-  const [items, setItems] = useState<ItemParaListaDeCompras[]>([]); //Quitar??
+const usarFuncionesParaProductos = () => {
+  const [items, setItems] = useState<ItemParaListaDeCompras[]>([]); 
 
-  const agregarItem = (item: string) => {
+  const agregarProducto = (item: string) => {
     const trimmed = item.trim();
     if (!trimmed) return;
     setItems((prev) => [
@@ -14,22 +14,22 @@ const usarItems = () => {
     ]);
   };
 
-  const cambiarItem = (id: string) => {
+  const cambiarProducto = (id: string) => {
     setItems((prev) =>
       prev.map((it) => (it.id === id ? { ...it, done: !it.done } : it)),
     );
   };
 
-  const eliminarItem = (id: string) => {
+  const eliminarProducto = (id: string) => {
     setItems((prev) => prev.filter((it) => it.id !== id));
   };
 
   return {
-    agregarItem,
-    cambiarItem,
-    eliminarItem,
-    obtenerItems: () => items,
+    agregarProducto,
+    cambiarProducto,
+    eliminarProducto,
+    obtenerProductos: () => items,
   } as const;
 };
 
-export default usarItems;
+export default usarFuncionesParaProductos;

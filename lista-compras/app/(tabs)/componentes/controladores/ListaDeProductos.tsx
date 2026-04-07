@@ -3,11 +3,11 @@ import { FlatList, Text, View, StyleSheet, Pressable } from "react-native";
 
 interface ListaDeProductosProps {
   items: any[];
-  alPresionarItem: (id: string) => void;
-  alMantenerPresionadoItem: (id: string) => void;
+  alPresionarElProducto: (id: string) => void;
+  alMantenerPresionadoElProducto: (id: string) => void;
 }
 
-export const ListaDeProductos = ({ items, alPresionarItem, alMantenerPresionadoItem }: ListaDeProductosProps) => {
+const ListaDeProductos = ({ items, alPresionarElProducto, alMantenerPresionadoElProducto }: ListaDeProductosProps) => {
 
   return (
     <FlatList
@@ -17,8 +17,8 @@ export const ListaDeProductos = ({ items, alPresionarItem, alMantenerPresionadoI
       //Diseño para cada producto acá, dentro del renderItem. Pero podría ser aparte
       renderItem={({ item }) => (
         <Pressable
-          onPress={() => alPresionarItem(item.id)}
-          onLongPress={() => alMantenerPresionadoItem(item.id)}
+          onPress={() => alPresionarElProducto(item.id)}
+          onLongPress={() => alMantenerPresionadoElProducto(item.id)}
           style={styles.row}
         >
           <Text style={[styles.rowText, item.done && styles.done]}>{item.name}</Text>
@@ -27,6 +27,7 @@ export const ListaDeProductos = ({ items, alPresionarItem, alMantenerPresionadoI
           </Text>
         </Pressable>
       )}
+
       ListEmptyComponent={<Text style={styles.empty}>Sin productos. ¡Agregá el primero! 😊</Text>}
       ItemSeparatorComponent={() => <View style={styles.sep} />}
     />

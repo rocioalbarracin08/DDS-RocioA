@@ -1,29 +1,25 @@
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
 import Contenedor from "./componentes/contenedores/Contenedor";
 import FormularioParaAgregarItem from "./componentes/controladores/FormularioParaAgregarItem";
 import Titulo from "./componentes/contenidos/Titulo";
-import usarItems from "./hooks/usarItems";
+import usarFuncionesParaProductos from "./hooks/usarFuncionesParaProductos";//
+import ListaDeProductos from "./componentes/controladores/ListaDeProductos";
 
 
 export default function App() {
-  const { agregarItem, eliminarItem, cambiarItem, obtenerItems } = usarItems();
+  const { agregarProducto, eliminarProducto, cambiarProducto, obtenerProductos } = usarFuncionesParaProductos();
 
   return (
     <Contenedor>
       <Titulo />
 
-      <FormularioParaAgregarItem alCompletarseElFormulario={agregarItem} />
+      <FormularioParaAgregarItem alCompletarseElFormulario={agregarProducto} />
 
-      <ListaDeCompras
-        items={obtenerItems()} //Array de objetos
-        alPresionarSobreUnItem={cambiarItem}
-        alMantenerPresionSobreUnItem={eliminarItem}
+      <ListaDeProductos
+        items={obtenerProductos} //Array de objetos
+        alPresionarElProducto={cambiarProducto}
+        alMantenerPresionadoElProducto={eliminarProducto}
       />
     </Contenedor>
   );

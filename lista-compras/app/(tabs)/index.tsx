@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import Contenedor from "./componentes/contenedores/Contenedor";
-import FormularioParaAgregarItem from "./componentes/controladores/FormularioParaAgregarItem";
-import Titulo from "./componentes/contenidos/Titulo";
-import usarFuncionesParaProductos from "./hooks/usarFuncionesParaProductos";//
-import ListaDeProductos from "./componentes/controladores/ListaDeProductos";
+import Contenedor from "../../src/componentes/contenedores/Contenedor";
+import FormularioParaAgregarItem from "../../src/componentes/controladores/FormularioParaAgregarItem";
+import Titulo from "../../src/componentes/contenidos/Titulo";
+import usarFuncionesParaProductos from "../../src/hooks/usarFuncionesParaProductos";//
+import ListaDeProductos from "../../src/componentes/controladores/ListaDeProductos";
 
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
       <FormularioParaAgregarItem alCompletarseElFormulario={agregarProducto} />
 
       <ListaDeProductos
-        items={obtenerProductos} //Array de objetos
+        items={obtenerProductos()} //Array de objetos
         alPresionarElProducto={cambiarProducto}
         alMantenerPresionadoElProducto={eliminarProducto}
       />

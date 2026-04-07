@@ -15,7 +15,7 @@ const FormularioParaAgregarItem = ({
         placeholder="Agregar producto (ej: Leche)"
         style={styles.input}
         returnKeyType="done"
-        onSubmitEditing={()=> alCompletarseElFormulario(text)}
+        // onSubmitEditing={()=> alCompletarseElFormulario(text)}
       />
       <Pressable style={styles.addBtn} onPress={()=> alCompletarseElFormulario(text)}>
         <Text style={styles.addTxt}>Agregar</Text>

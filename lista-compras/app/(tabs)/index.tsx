@@ -8,7 +8,7 @@ import ListaDeProductos from "../../src/componentes/controladores/ListaDeProduct
 
 
 export default function App() {
-  const { agregarProducto, eliminarProducto, cambiarProducto, obtenerProductos } = usarFuncionesParaProductos();
+  const { agregarProducto, eliminarProducto, cambiarProducto, items } = usarFuncionesParaProductos();
 
   return (
     <Contenedor>
@@ -17,7 +17,7 @@ export default function App() {
       <FormularioParaAgregarItem alCompletarseElFormulario={agregarProducto} />
 
       <ListaDeProductos
-        items={obtenerProductos()} //Array de objetos
+        items
         alPresionarElProducto={cambiarProducto}
         alMantenerPresionadoElProducto={eliminarProducto}
       />

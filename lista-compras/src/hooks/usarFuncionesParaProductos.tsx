@@ -6,11 +6,9 @@ const usarFuncionesParaProductos = () => {
   const [items, setItems] = useState<ItemParaListaDeCompras[]>([]); 
 
   const agregarProducto = (item: string) => {
-    const trimmed = item.trim();
-    if (!trimmed) return;
     setItems((prev) => [
       ...prev,
-      { id: String(Date.now()), name: trimmed, done: false },
+      { id: String(Date.now()), name: item, done: false },
     ]);
   };
 
@@ -28,7 +26,7 @@ const usarFuncionesParaProductos = () => {
     agregarProducto,
     cambiarProducto,
     eliminarProducto,
-    obtenerProductos: () => items,
+    items
   } as const;
 };
 

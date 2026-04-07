@@ -1,8 +1,9 @@
 import React from "react";
 import { FlatList, Text, View, StyleSheet, Pressable } from "react-native";
+import {ItemParaListaDeCompras} from "../../tipos/ItemParaListaDeCompras"
 
 interface ListaDeProductosProps {
-  items: any[];
+  items: ItemParaListaDeCompras[];
   alPresionarElProducto: (id: string) => void;
   alMantenerPresionadoElProducto: (id: string) => void;
 }

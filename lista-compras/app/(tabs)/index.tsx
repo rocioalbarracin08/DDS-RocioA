@@ -1,14 +1,14 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import Contenedor from "../../src/componentes/contenedores/Contenedor";
-import FormularioParaAgregarItem from "../../src/componentes/controladores/FormularioParaAgregarItem";
 import Titulo from "../../src/componentes/contenidos/Titulo";
-import usarFuncionesParaProductos from "../../src/hooks/usarFuncionesParaProductos";//
+import FormularioParaAgregarItem from "../../src/componentes/controladores/FormularioParaAgregarItem";
 import ListaDeProductos from "../../src/componentes/controladores/ListaDeProductos";
-
+import useFuncionesParaProductos from "../../src/hooks/usarFuncionesParaProductos"; //
 
 export default function App() {
-  const { agregarProducto, eliminarProducto, cambiarProducto, items } = usarFuncionesParaProductos();
+  const { agregarProducto, eliminarProducto, cambiarProducto, items } =
+    useFuncionesParaProductos();
 
   return (
     <Contenedor>
@@ -17,7 +17,7 @@ export default function App() {
       <FormularioParaAgregarItem alCompletarseElFormulario={agregarProducto} />
 
       <ListaDeProductos
-        items
+        items={items}
         alPresionarElProducto={cambiarProducto}
         alMantenerPresionadoElProducto={eliminarProducto}
       />

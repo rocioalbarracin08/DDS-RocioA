@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { ItemParaListaDeCompras } from "../tipos/ItemParaListaDeCompras"; 
+import { ItemParaListaDeCompras } from "../tipos/ItemParaListaDeCompras";
 
-
-const usarFuncionesParaProductos = () => {
-  const [items, setItems] = useState<ItemParaListaDeCompras[]>([]); 
+const useFuncionesParaProductos = () => {
+  const [items, setItems] = useState<ItemParaListaDeCompras[]>([]);
 
   const agregarProducto = (item: string) => {
     setItems((prev) => [
@@ -26,8 +25,8 @@ const usarFuncionesParaProductos = () => {
     agregarProducto,
     cambiarProducto,
     eliminarProducto,
-    items
+    items,
   } as const;
 };
 
-export default usarFuncionesParaProductos;
+export default useFuncionesParaProductos;
